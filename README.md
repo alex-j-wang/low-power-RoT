@@ -11,7 +11,7 @@ stays in this fork.
 
 ## Credits
 
-This repository is a **derivation**. The template, Nix flake, and
+This repository is a derivation. The template, Nix flake, and
 LibreLane flow are the work of Leo Moser and the wafer-space
 contributors; the workshop pad layout is a port of Juan Moya's
 `padring_gf180`. Both are Apache-2.0.
