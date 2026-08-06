@@ -1,3 +1,40 @@
+## Chipathon 2026 submission: `top_pd_min` (Low-Power RoT)
+
+This repo carries the actual project submission data for the dry-run 
+precheck: `info.yaml`and `lvs_config.json` at the repo root, pointing 
+at a real hardened design, `top_pd_min`.
+
+**What `top_pd_min` is:** a minimal OpenTitan-derived Root-of-Trust SoC
+(Ibex RISC-V core + TL-UL crossbar + UART + PUF) with a **PUF-derived-key
+secure boot** chain -- a signed boot image is verified with an ECDSA
+(secp160r1) key derived at runtime from a physical SRAM PUF, not stored
+anywhere on-chip. Full boot sequence:
+
+```
+1. Trigger the PUF, read back a 256-bit response
+2. Derive a secp160r1 private key from it
+3. Compute the matching public key (uECC)
+4. Read the signed container staged in DMEM: [ header | payload | signature ]
+5. Recompute SHA-256 over the bound header+payload
+6. Verify the signature against the PUF-derived public key
+7. Copy the verified payload into ESRAM, jump in, execute it
+```
+
+Development happened in a separate, much larger working repo
+(`opentitan_minrot` -- the full OpenTitan-derived monorepo); 
+only the specific deliverables needed for the dry-run precheck were added 
+into this repo, not the entire repo:
+
+- `info.yaml`, `lvs_config.json` -- dry-run precheck config, `TOP_SOURCE:
+  top_pd_min`.
+- `gds/top_pd_min.gds` -- final signed-off layout (post-PnR, DRC/LVS
+  clean on `gf180mcuD`).
+- `verilog/gl/top_pd_min.nl.v` -- the matching post-PnR gate-level
+  netlist (same run that produced the GDS above, so LVS matches by
+  construction).
+- `ip/top_pd_min/` -- the same macro (GDS + LEF + timing `.lib` +
+  blackbox Verilog)
+
 # chipathon-2026-gf180mcu-padring
 
 Chipathon 2026 workshop fork of the wafer-space `gf180mcu-project-template`.
@@ -119,6 +156,17 @@ truth - this fork *is* those six files.
 |-- CREDITS.md                      # detailed credits
 |-- AUTHORS.md                      # copyright holders (upstream + fork)
 |-- LICENSE                         # Apache-2.0
+|-- info.yaml                       # Chipathon 2026 dry-run: project metadata
+|-- lvs_config.json                 # Chipathon 2026 dry-run: LVS config (TOP_SOURCE: top_pd_min)
+|-- gds/
+|   `-- top_pd_min.gds              # signed-off top_pd_min layout
+|-- verilog/gl/
+|   `-- top_pd_min.nl.v             # matching post-PnR gate-level netlist
+|-- ip/
+|   |-- top_pd_min/                 # top_pd_min macro, packaged (gds/lef/lib/vh) --
+|   |                               #   not yet wired into a padring slot, see above
+|   |-- gf180mcu_ws_ip__id/         # upstream chip-ID macro
+|   `-- gf180mcu_ws_ip__logo/       # upstream wafer.space logo macro
 |-- docs/
 |   |-- workshop-slot-spec.md       # full pad-by-pad mapping
 |   |-- reproducing-native.md       # nix-shell walkthrough
