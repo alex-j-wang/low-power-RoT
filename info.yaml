@@ -18,3 +18,26 @@ project:
   description: "OpenTitan-derived mini Root-of-Trust: Ibex core + TL-UL crossbar + UART, secure boot with an ECDSA (secp160r1) key derived at runtime from a physical SRAM PUF"
   lvs_config: "lvs_config.json"
 
+pins:
+  - name: clk
+    io_type: input_schmitt
+  - name: rst_n
+    io_type: input_cmos
+  - name: uart_tx
+    io_type: bidirectional
+  - name: qspi_sclk
+    io_type: bidirectional
+  - name: qspi_cs_n
+    io_type: bidirectional
+  - name: qspi_io0
+    io_type: bidirectional
+  - name: qspi_io1
+    io_type: bidirectional
+  - name: qspi_io2
+    io_type: bidirectional
+  - name: qspi_io3
+    io_type: bidirectional
+  - name: vdd
+    io_type: power
+  - name: vss
+    io_type: ground  # note: due to a common ground connection, ground pads are generally not needed.
