@@ -37,6 +37,7 @@ pins:
     io_type: bidirectional
   - name: qspi_io3
     io_type: bidirectional
+#PUF debug pins will be needed still undetermined how many and what types
   - name: vdd
     io_type: power
   - name: vss
