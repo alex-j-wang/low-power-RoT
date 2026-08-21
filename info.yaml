@@ -19,26 +19,40 @@ project:
   lvs_config: "lvs_config.json"
 
 pins:
-  - name: clk
-    io_type: input_schmitt
-  - name: rst_n
-    io_type: input_cmos
-  - name: uart_tx
-    io_type: bidirectional
-  - name: qspi_sclk
-    io_type: bidirectional
-  - name: qspi_cs_n
-    io_type: bidirectional
-  - name: qspi_io0
-    io_type: bidirectional
-  - name: qspi_io1
-    io_type: bidirectional
-  - name: qspi_io2
-    io_type: bidirectional
-  - name: qspi_io3
-    io_type: bidirectional
-#PUF debug pins will be needed still undetermined how many and what types
-  - name: vdd
+  - name: VDD
     io_type: power
-  - name: vss
+  - name: VSS
     io_type: ground  # note: due to a common ground connection, ground pads are generally not needed.
+  - name: clk_i
+    io_type: input_schmitt
+#PUF debug pins need to be addded
+  - name: rst_ni
+    io_type: input_cmos
+  - name: uart_rx_i
+    io_type: input_cmos
+  - name: uart_tx_o
+    io_type: bidirectional
+  - name: uart_tx_en_o
+    io_type: bidirectional
+  - name: qspi_sclk_o
+    io_type: bidirectional
+  - name: qspi_cs_n_o
+    io_type: bidirectional
+  - name: qspi_io_o[0]
+    io_type: bidirectional
+  - name: qspi_io_o[1]
+    io_type: bidirectional
+  - name: qspi_io_o[2]
+    io_type: bidirectional
+  - name: qspi_io_o[3]
+    io_type: bidirectional
+  - name: qspi_io_i[0]
+    io_type: bidirectional
+  - name: qspi_io_i[1]
+    io_type: bidirectional
+  - name: qspi_io_i[2]
+    io_type: bidirectional
+  - name: qspi_io_i[3]
+    io_type: bidirectional
+  - name: qspi_io_oe_o
+    io_type: bidirectional
