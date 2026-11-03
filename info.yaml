@@ -17,6 +17,7 @@ project:
   discord: "ema01710"                   # Optional: Discord username (for support / communication)
   description: "OpenTitan-derived mini Root-of-Trust: Ibex core + TL-UL crossbar + UART, secure boot with an ECDSA (secp160r1) key derived at runtime from a physical SRAM PUF"
   lvs_config: "lvs_config.json"
+  export_control: "docs/Export_Control_GF_Rev8.2.docx" 
 
 pins:
   - name: VDD
